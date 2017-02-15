@@ -1,25 +1,29 @@
 
 
 #include <iostream>
-#include <math.h>
-#include <cstdlib>
-#include <stdio.h>
+#include <cmath>
 
 
 using std::cout;
 
-int s=2;
-double n=4;
 
-double zeta(double n){
+double zeta(int n, int s = 2){
 
 	double output = 0.0;
 	double calc = 1.0;
 
 	for (int i=2; i<n;i++){
+	calc = 1.0/std::pow(i,s);
 	output += calc;
-	calc = 1.0/pow(i,s);
 }
 return output;
-cout << calc << "\n";
+}
+
+int main(int argc, char ** argv)
+{
+  int n=4;
+  double zSn = zeta(n, 2);
+  cout << zSn << "\n";
+
+  return 0;
 }
