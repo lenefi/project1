@@ -1,0 +1,4 @@
+CC=gcc
+TARGET=foo
+
+	$(CC) -o $(TARGET) zeta0.cpp
