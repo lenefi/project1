@@ -2,7 +2,6 @@
 #include <cmath>
 #include "zeta0.h"
 
-using std::cout;
 using std::pow;
 using std::sqrt;
 
@@ -15,6 +14,6 @@ double zeta(int n, int s = 2){
 	calc = 1.0/pow(i,s);
 	output += calc;
 }
-output=std::sqrt(6* output);
+output=sqrt(6* output);
 return output;
 }
