@@ -15,7 +15,7 @@ void vtest(){
 		n=pow(2,i);
 		pi_approx=mach0(n);
 		error=abs(M_PI-pi_approx);
-		myfile << "Error for n=" << n << ": " << error << endl;
+		myfile <<scientific<< "Error for n=" << n << ": " << error << endl;
 	}
 	myfile.close();
 }
