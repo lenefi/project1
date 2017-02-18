@@ -5,7 +5,7 @@
 using std::pow;
 using std::sqrt;
 
-double zeta(int n, int s = 2){
+double zeta0(int n, int s = 2){
 
 	double output = 0.0;
 	double calc;

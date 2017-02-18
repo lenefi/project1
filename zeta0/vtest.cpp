@@ -1,19 +1,19 @@
 #include <iostream>
-#include <ofstream>
+#include <fstream>
 #include <cmath>
 #include "zeta0.h"
 
 
-void vtest (int n, int s, int k)
+void vtest(int n, int s, int k){
 
-pi= M_PI;
-outfile ("error.txt");
+double pi= M_PI;
+std::ofstream outfile ("error.txt");
 
-	for (i=1; i<=k; i++){
-	n= std::pow(2,k)
-	pi_n = zeta0(n,s);
-	err = abs(pi-pi_n);
+	for (int i=1; i<=k; i++){
+	n= std::pow(2,i);
+	double pi_n = zeta0(n,s);
+	double err = std::abs(pi-pi_n);
 
-outfile
+outfile << err << "\n";
 }
 }
