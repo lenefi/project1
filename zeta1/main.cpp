@@ -8,10 +8,10 @@ MPI_Status status;
 
 MPI_Init(&argc,&argv);
 int s=2;
-int n=8;
+int n=16;
 
-test();
-// zeta1(s,n);
+//test();
+zeta1(s,n);
 
 
 MPI_Finalize();

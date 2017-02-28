@@ -1,5 +1,5 @@
-CC=g++
-CFLAGS = -std=c99 -O2
+CC=mpicxx
+CFLAGS =  -O2 #standard c99 , -02 is optimizer
 LDFLAGS= 
 LNKLIBS= -lm
 
@@ -17,8 +17,9 @@ LIBOBJ=$(patsubst %.cpp, %.o, $(LIBSRC))
 CLEAN_FILES+=$(LIB) $(LIBOBJ)
 
 # Implicit rule for compilation of all objects
-%.o:%.c
-	$(CC) $(CFLAGS) -c $<
+%.o:%.cpp
+	$(CC) $(CFLAGS) -c $< 
+
 
 # Rule to build the library
 $(LIB): $(LIBOBJ)
