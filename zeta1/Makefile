@@ -1,9 +1,38 @@
-zeta1: main.o zeta1.o
-	mpiCC -o zeta1 main.o zeta1.o
+CC=g++
+CFLAGS = -std=c99 -O2
+LDFLAGS= 
+LNKLIBS= -lm
 
-main.o: main.cpp zeta1.h
-	mpiCC -c main.cpp
+MPIRUN =mpirun
+NPROCS?=4
 
-zeta1.o: zeta1.cpp zeta1.h
-	mpiCC -c zeta1.cpp
+EXE=exe
+EXESRC=main.cpp
+EXEOBJ=$(patsubst %.cpp, %.o, $(EXESRC))
+CLEAN_FILES+=$(EXE) $(EXEOBJ)
 
+LIB=libfunction.a
+LIBSRC=zeta1.cpp test.cpp
+LIBOBJ=$(patsubst %.cpp, %.o, $(LIBSRC))
+CLEAN_FILES+=$(LIB) $(LIBOBJ)
+
+# Implicit rule for compilation of all objects
+%.o:%.c
+	$(CC) $(CFLAGS) -c $<
+
+# Rule to build the library
+$(LIB): $(LIBOBJ)
+	@echo "LIB $@"
+	@ar r $@ $^
+
+
+# Program
+$(EXE):	$(EXEOBJ) $(LIB)
+	@echo "EXE $@"
+	@$(CC) $(LDFLAGS) -o $@ $^ $(LNKLIBS)
+
+run:	$(EXE)
+	$(MPIRUN) -n $(NPROCS) ./$< $(X) $(N)
+
+clean:
+	rm -f $(CLEAN_FILES)
