@@ -11,6 +11,6 @@ MPI_Comm_size(MPI_COMM_WORLD, &size);
 MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 
-std::cout<< "size: " << size<< "\n";
+std::cout<< "number of processes: " << size<< "\n";
 
 }
