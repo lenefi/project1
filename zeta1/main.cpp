@@ -8,7 +8,7 @@ MPI_Status status;
 
 MPI_Init(&argc,&argv);
 int s=2;
-int n=16;
+int n=512;
 
 //test();
 zeta1(s,n);
