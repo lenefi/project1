@@ -5,7 +5,7 @@
 using std::pow;
 using std::sqrt;
 
-double zeta0(int n, int s = 2){
+double zeta0(int n, int s){
 
 	double output = 0.0;
 	double calc;
@@ -14,6 +14,6 @@ double zeta0(int n, int s = 2){
 	calc = 1.0/pow(i,s);
 	output += calc;
 }
-output=sqrt(6* output);
+
 return output;
 }

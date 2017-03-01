@@ -4,16 +4,19 @@
 #include "zeta0.h"
 
 
-void vtest(int n, int s, int k){
+int main(){
 
-double pi= M_PI;
-std::ofstream outfile ("error.txt");
+int n = 3, s = 2, k = 24;
+double corr_value = (M_PI*M_PI)/6.;
+
+std::ofstream outfile ("vtest.txt");
 
 	for (int i=1; i<=k; i++){
 	n= std::pow(2,i);
-	double pi_n = zeta0(n,s);
-	double err = std::abs(pi-pi_n);
+	double Sn = zeta0(n,s);
+	double err = std::abs(corr_value-Sn);
 
 outfile << err << "\n";
 }
+return 0;
 }

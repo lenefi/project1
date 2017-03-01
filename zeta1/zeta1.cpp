@@ -1,13 +1,15 @@
 #include <iostream>
 #include <cmath>
 #include "mpi.h"
+#include "omp.h"
 #include <ctime>
 #include "zeta1.h"
+#include <fstream>
 
 clock_t start = clock();
 
 
-void zeta1(int s, int n){
+void zeta1(int s, int n, double *error, double *tid){
 
 double corr_value = (M_PI*M_PI)/6.;
 
@@ -24,6 +26,8 @@ double pvec[m];
 
 if (rank ==0) {
         double vec[n];
+
+	#pragma omp parallel for
 	for (i=1; i<=n; i++){
 	double start = 1.0/std::pow(i,s);
 	vec[i-1]= start;
@@ -43,6 +47,7 @@ else{
 
 
 	double part_sum = 0.;
+	#pragma omp parallel for reduction(+:part_sum)
 	for (i=0; i<m; i++ ){
 		part_sum += pvec[i];
 }
@@ -51,9 +56,12 @@ else{
 
 if(rank == 0)
 {
+
+
 std::cout << "Error of correct value and estimated value: " << corr_value -Sn << '\n';
 clock_t end = clock();
-float seconds = (float)(end - start) / CLOCKS_PER_SEC;
-
+double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+error=std::abs(corr_value-Sn);
+tid=seconds;
 std::cout << "It took " << seconds << " seconds." << '\n'; }
 }

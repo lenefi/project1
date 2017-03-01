@@ -46,9 +46,12 @@ else{
 	for (i=0; i<m; i++ ){
 		part_sum += pvec[i];
 	}
+
 	double Sn;
  	MPI_Allreduce(&part_sum,&Sn, 1, MPI_DOUBLE, MPI_SUM,MPI_COMM_WORLD);
+
 	clock_t end_all = clock();
+
 	double sigma(part_sum), sigma_q;
 	int p(rank), P(size);
 	
@@ -58,14 +61,14 @@ else{
 	MPI_Recv(&sigma_q,1, MPI_DOUBLE,q ,tag,MPI_COMM_WORLD, &status);
 	sigma +=sigma_q;
 	}
-clock_t end_comp = clock();
+	clock_t end_comp = clock();
 
 
-
-
+std::cout << "Difference between methods: " << sigma -Sn << '\n';
 
 std::cout << "Difference of value: " << corr_value -Sn << '\n';
 clock_t end = clock();
 float seconds = (float)((end_comp - start)-(end_all-start)) / CLOCKS_PER_SEC;
 
 std::cout << "Difference of t: " << seconds << " seconds." << '\n'; }
+
