@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include "mpi.h"
+#include "omp.h"
 #include <ctime>
 #include "zeta1.h"
 
@@ -24,6 +25,8 @@ double pvec[m];
 
 if (rank ==0) {
         double vec[n];
+
+	#pragma omp parallel for
 	for (i=1; i<=n; i++){
 	double start = 1.0/std::pow(i,s);
 	vec[i-1]= start;
@@ -43,6 +46,7 @@ else{
 
 
 	double part_sum = 0.;
+	#pragma omp parallel for reduction(+:part_sum)
 	for (i=0; i<m; i++ ){
 		part_sum += pvec[i];
 }

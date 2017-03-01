@@ -1,5 +1,5 @@
 CC=mpicxx
-CFLAGS =  -O2 #standard c99 , -02 is optimizer
+CFLAGS =  -std=c++11 -O2 
 LDFLAGS= 
 LNKLIBS= -lm
 
