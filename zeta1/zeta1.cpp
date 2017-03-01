@@ -4,11 +4,12 @@
 #include "omp.h"
 #include <ctime>
 #include "zeta1.h"
+#include <fstream>
 
 clock_t start = clock();
 
 
-void zeta1(int s, int n){
+void zeta1(int s, int n, double *error, double *tid){
 
 double corr_value = (M_PI*M_PI)/6.;
 
@@ -55,9 +56,12 @@ else{
 
 if(rank == 0)
 {
+
+
 std::cout << "Error of correct value and estimated value: " << corr_value -Sn << '\n';
 clock_t end = clock();
-float seconds = (float)(end - start) / CLOCKS_PER_SEC;
-
+double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+error=std::abs(corr_value-Sn);
+tid=seconds;
 std::cout << "It took " << seconds << " seconds." << '\n'; }
 }
