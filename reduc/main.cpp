@@ -1,6 +1,6 @@
 #include <iostream>
 #include <mpi.h>
-#include "reduc.h"
+#include "reduc_zeta.h"
 
 int main (int argc, char **argv){
 
@@ -10,7 +10,7 @@ MPI_Init(&argc,&argv);
 int s=2;
 int n=512;
 
-reduc(s,n);
+reduc_zeta(s,n);
 
 
 MPI_Finalize();

@@ -5,6 +5,7 @@ LNKLIBS= -lm
 
 MPIRUN =mpirun
 NPROCS?=4
+N?=4
 
 EXE=exe
 EXESRC=main.cpp
@@ -12,7 +13,7 @@ EXEOBJ=$(patsubst %.cpp, %.o, $(EXESRC))
 CLEAN_FILES+=$(EXE) $(EXEOBJ)
 
 LIB=libfunction.a
-LIBSRC=reduc.cpp
+LIBSRC=$(wildcard *.cpp)
 LIBOBJ=$(patsubst %.cpp, %.o, $(LIBSRC))
 CLEAN_FILES+=$(LIB) $(LIBOBJ)
 
@@ -28,12 +29,24 @@ $(LIB): $(LIBOBJ)
 
 
 # Program
-$(EXE):	$(EXEOBJ) $(LIB)
-	@echo "EXE $@"
-	@$(CC) $(LDFLAGS) -o $@ $^ $(LNKLIBS)
+all: reduc_mach reduce_zeta
 
-run:	$(EXE)
-	$(MPIRUN) -n $(NPROCS) ./$< $(X) $(N)
+#$(EXE):	$(EXEOBJ) $(LIB)
+#	@echo "EXE $@"
+#	@$(CC) $(LDFLAGS) -o $@ $^ $(LNKLIBS)
+
+# reduc mach
+reduc_mach: reduc_mach.o $(LIB)
+	    @$(CC) $(LDFLAGS) -o $@ $^ $(LINKLIBS)
+	    $(MPIRUN) -n $(NPROCS) ./$@ $(N)	
+
+# reduc zeta
+reduc_zeta: reduc_zeta.o $(LIB)
+	    @$(CC) $(LDFLAGS) -o $@ $^ $(LINKLIBS)
+	    $(MPIRUN) -n $(NPROCS) ./$@ $(N)	
+
+#run:	$(EXE)
+#	$(MPIRUN) -n $(NPROCS) ./$<
 
 clean:
-	rm -f $(CLEAN_FILES)
+	rm -f $(CLEAN_FILES) reduc_zeta reduc_mach
