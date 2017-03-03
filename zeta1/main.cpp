@@ -7,24 +7,22 @@
 int main (int argc, char **argv){
 std::ofstream data ("data.txt");
 
+
+double error, tid;
 int s=2;
-//int n=512;
+MPI_Init(&argc,&argv);
 
-
-double *error;
-double *tid;
-
-data <<"n: "<<"\t"<< "Error: "<<"\t"<<"tid: " << "\n";
-for (int k=1; k<30; k++){
+data << "n: " <<"\t"<< "Error: "<<"\t"<<"tid: " << "\n";
+for (int k=1; k<16; k++){
 
 int n;
 n=std::pow(2,k);
 
 
-zeta1(s,n, error, tid, argc, argv);
+zeta1(s,n);
 
-data <<n<<"\t"<< &error<<"\t"<<&tid << "\n";
+data << n << "\n";
 }
 
-
+MPI_Finalize();
 return 0;}

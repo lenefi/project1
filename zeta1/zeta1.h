@@ -2,5 +2,5 @@
 #define ZETA1_H_
 #define _USE_MATH_DEFINES
 
-void zeta1(int s, int n, double *error, double *tid, int argc, char **argv);
+void zeta1(int s, int n);
 #endif /* ZETA1_H_ */
